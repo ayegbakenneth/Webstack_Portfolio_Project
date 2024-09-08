@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopWise Site</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+</head>
+<style>
+    /* Global Styles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f5f5f5; /* Light gray background */
+}
+
+/* Header Styles */
+header {
+    background-color: #333; /* Dark gray header */
+    color: #fff; /* White text */
+    padding: 20px;
+    text-align: center;
+}
+
+.logo {
+    font-size: 36px;
+    font-weight: bold;
+}
+
+/* Main Styles */
+.main {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.about {
+    background-color: #f0f0f0; /* Light gray background for about section */
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.nav {
+    text-align: center;
+    margin-top: 20px;
+}
+
+nav a {
+    color: #333;
+    text-decoration: none;
+    padding: 10px;
+    border-radius: 5px;
+    background-color: #f0f0f0; /* Light gray background for nav links */
+    transition: background-color 0.3s ease;
+}
+
+nav a:hover {
+    background-color: blue;
+    color: white;
+}
+
+.hero {
+    text-align: center;
+    margin-top: 40px;
+}
+
+.hero img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Footer Styles */
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
+}
+</style>
+<body>
+    <header>
+        <h1 class="logo">Welcome to ShopWise</h1>
+    </header>
+
+    <main>
+        <section class="about">
+            <h2>About Us</h2>
+            <p>Welcome to our exclusive online store.</p>
+            <p>We offer a curated selection of products just for you.</p>
+        </section>
+        <nav>
+            <a href="{{ url_for('get_products') }}">View Our Products</a>
+        </nav>
+        <section class="hero">
+            <img src="{{ url_for('static', filename='uploads/imgHero.png') }}" alt="Hero Image">
+        </section>
+    </main>
+    <footer>
+        <p>&copy; 2024 My eCommerce Site</p>
+    </footer>
+</body>
+</html>

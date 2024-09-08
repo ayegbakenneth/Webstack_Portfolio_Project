@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ShopWise-Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <style>
+        body {
+            background-color: grey;
+            color: yellow;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        header {
+            text-align: center;
+        }
+
+        nav a {
+            color: lightblue;
+            margin-right: 10px;
+        }
+
+        .container {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .item {
+            background-color: #333;
+            border-radius: 8px;
+            padding: 20px;
+            max-width: 300px;
+            text-align: center;
+        }
+
+        .item img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 8px;
+        }
+
+        .pagination a {
+            color: red;
+            margin: 0 10px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 20px;
+        }
+
+        @media (max-width: 600px) {
+            .item {
+                max-width: 100%;
+            }
+
+            nav {
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<header>
+    <strong><h1>Our Products</h1></strong>
+</header>
+
+<nav>
+    <a href="{{ url_for('index') }}">Home</a>
+</nav>
+
+<div class="container">
+    {% for product in products %}
+    <div class="item">
+        <h3>{{ product.name }}</h3>
+        <p>{{ product.description }}</p>
+        {% if product.image_url.startswith('http') %}
+        <img src="{{ product.image_url }}" alt="{{ product.name }}">
+        {% else %}
+        <img src="{{ url_for('static', filename=product.image_url) }}" alt="{{ product.name }}">
+        {% endif %}
+        <p>Price: #{{ product.price }}</p>
+    </div>
+    {% endfor %}
+    
+    <div class="pagination">
+        {% if prev_page %}
+        <a href="{{ prev_page }}">&laquo; Previous</a>
+        {% endif %}
+        {% if next_page %}
+        <a href="{{ next_page }}">Next &raquo;</a>
+        {% endif %}
+    </div>
+</div>
+
+<footer id="contact">
+    <p>Contact us at: enestee@gmail.com/08134711319.</p>
+</footer>
+
+</body>
+</html>
