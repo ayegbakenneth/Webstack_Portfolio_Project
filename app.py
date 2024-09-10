@@ -3,7 +3,6 @@ import os
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 from extensions import db
-from config import Config
 from models import Product
 
 load_dotenv()  # Load environment variables from .env file
