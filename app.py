@@ -15,7 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 )
 
 db.init_app(app)
-
+db.create_all()
 @app.errorhandler(401)
 def unauthorized(error):
     return jsonify({"error": "Unauthorized"}), 401
