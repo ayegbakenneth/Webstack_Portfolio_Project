@@ -15,6 +15,7 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 )
 
 db = SQLAlchemy(app)
+db.init_app(app)
 
 @app.errorhandler(401)
 def unauthorized(error):
