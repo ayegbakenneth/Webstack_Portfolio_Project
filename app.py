@@ -14,7 +14,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
     f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
 )
 
-db = SQLAlchemy(app)
 db.init_app(app)
 
 @app.errorhandler(401)
