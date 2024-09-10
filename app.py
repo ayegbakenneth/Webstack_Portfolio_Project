@@ -1,11 +1,21 @@
 from flask import Flask, jsonify, render_template, request, url_for
+import os
+from flask_sqlalchemy import SQLAlchemy
+from dotenv import load_dotenv
 from extensions import db
 from config import Config
 from models import Product
 
+load_dotenv()  # Load environment variables from .env file
+
 app = Flask(__name__)
-app.config.from_object(Config)
-db.init_app(app)
+
+app.config['SQLALCHEMY_DATABASE_URI'] = (
+    f"postgresql+psycopg2://{os.getenv('DB_USER')}:{os.getenv('DB_PASS')}"
+    f"@{os.getenv('DB_HOST')}:{os.getenv('DB_PORT')}/{os.getenv('DB_NAME')}"
+)
+
+db = SQLAlchemy(app)
 
 @app.errorhandler(401)
 def unauthorized(error):
