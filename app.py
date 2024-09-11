@@ -49,6 +49,26 @@ def get_products():
 
     return render_template('views.html', products=product_list, next_page=next_page, prev_page=prev_page)
 
+@app.route('/add_product', methods=['POST'])
+def add_product():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+
+    try:
+        new_product = Product(
+            name=data['name'],
+            description=data['description'],
+            price=data['price'],
+            image_url=data['image_url']
+        )
+        db.session.add(new_product)
+        db.session.commit()
+        return jsonify({"message": "Product added successfully"}), 201
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 @app.errorhandler(403)
 def forbidden(error):
     return jsonify({"error": "Forbidden"}), 403
