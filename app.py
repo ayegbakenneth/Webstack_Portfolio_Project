@@ -69,6 +69,41 @@ def add_product():
         db.session.rollback()
         return jsonify({"error": str(e)}), 500
 
+@app.route('/update_product/<int:id>', methods=['PUT'])
+def update_product(id):
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "Invalid input"}), 400
+
+    product = Product.query.get(id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+
+    try:
+        product.name = data.get('name', product.name)
+        product.description = data.get('description', product.description)
+        product.price = data.get('price', product.price)
+        product.image_url = data.get('image_url', product.image_url)
+        db.session.commit()
+        return jsonify({"message": "Product updated successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
+@app.route('/delete_product/<int:id>', methods=['DELETE'])
+def delete_product(id):
+    product = Product.query.get(id)
+    if not product:
+        return jsonify({"error": "Product not found"}), 404
+
+    try:
+        db.session.delete(product)
+        db.session.commit()
+        return jsonify({"message": "Product deleted successfully"}), 200
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": str(e)}), 500
+
 @app.errorhandler(403)
 def forbidden(error):
     return jsonify({"error": "Forbidden"}), 403
