@@ -15,9 +15,8 @@ app.config['SQLALCHEMY_DATABASE_URI'] = (
 )
 
 db.init_app(app)
-def initialize_database():
-    with app.app_context():
-        db.create_all()
+with app.app_context():
+    db.create_all()
 
 @app.errorhandler(401)
 def unauthorized(error):
@@ -59,4 +58,5 @@ def not_found(error):
     return jsonify({"error": "Not Found"}), 404
 
 if __name__ == "__main__":
+    initialize_database()
     app.run()
